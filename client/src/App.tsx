@@ -1,11 +1,18 @@
-const products = [
-  {id: 0, name: 'product1', price: 100}, 
-  {id: 1, name: 'product2', price: 200},
-  {id: 2, name: 'product3', price: 300},
-  {id: 3, name: 'product4', price: 400}
-]
+import { useEffect, useState } from "react"
 
-function App() {
+function App() { 
+  const [products, setProducts] = useState<{id: number, name: string, price: number}[]>([])
+
+  useEffect(() => {
+    fetch('https://localhost:5001/api/products')
+    .then(response => response.json())
+    .then(data => setProducts(data))
+  }, [])
+  
+
+  const addProduct = () => {
+    setProducts(prev => [...prev, {id: (prev.length + 1), name: 'product' + (prev.length + 1), price: (prev.length * 100) + 100}])
+  }
 
   return (
     <div>
@@ -15,6 +22,7 @@ function App() {
           <li key={elem.id} >{elem.name}, {elem.price}</li>
         ))}
       </ul>
+      <button onClick={addProduct}>add a product</button>
     </div>
   )
 }
