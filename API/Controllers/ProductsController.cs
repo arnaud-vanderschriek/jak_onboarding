@@ -3,6 +3,7 @@ using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -13,9 +14,9 @@ namespace API.Controllers
     private readonly StoreContext context = context;
 
     [HttpGet]
-    public ActionResult<List<Product>> GetProducts()
+    public async Task<ActionResult<List<Product>>> GetProducts()
     {
-      return context.Products.ToList();
+      return await context.Products.ToListAsync();
     }
 
     [HttpGet("{id}")]
