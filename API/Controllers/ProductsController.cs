@@ -20,9 +20,9 @@ namespace API.Controllers
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Product> GetProduct(int id)
+    public async Task<ActionResult<Product>> GetProduct(int id)
     {
-      var product = context.Products.Find(id);
+      var product = await context.Products.FindAsync(id);
 
       return product == null ? NotFound() : Ok(product);
     }

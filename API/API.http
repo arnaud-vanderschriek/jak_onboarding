@@ -1,3 +1,5 @@
+//utilisée pour tester les entry points de notre API
+
 @API_HostAddress = http://localhost:5093
 
 GET {{API_HostAddress}}/weatherforecast/
