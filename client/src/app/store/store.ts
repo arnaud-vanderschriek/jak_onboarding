@@ -5,17 +5,17 @@ import { catalogApi } from "../../features/catalog/catalogApi";
 import { uiSlice } from "../layout/uiSlice";
 
 export function configureTheStore() {
-    return legacy_createStore(counterReducer)
+  return legacy_createStore(counterReducer)
 }
 
 export const store = configureStore({
-    reducer: {
-        [catalogApi.reducerPath]: catalogApi.reducer,
-        counter: counterSlice.reducer,
-        ui: uiSlice.reducer
-    },
-    middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware().concat(catalogApi.middleware)
+  reducer: {
+    [catalogApi.reducerPath]: catalogApi.reducer,
+    counter: counterSlice.reducer,
+    ui: uiSlice.reducer 
+  },
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(catalogApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>

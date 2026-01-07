@@ -32,54 +32,54 @@ export default function NavBar() {
     const dispatch = useAppDispatch();
 
     return (
-        <AppBar position="fixed">
-            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography component={NavLink} sx={navStyles} to='/' variant='h6'>Re-Store</Typography>
-                    <IconButton sx={{ color: 'white',  marginLeft: '10px' }} onClick={ () => dispatch(setDarkMode())}>
-                        { darkMode ? <DarkMode /> : <LightMode /> }
-                    </IconButton>
-                </Box>
-            
-                <List sx={{ display: 'flex' }}>
-                    {midLinks.map(({ title, path }) => (
-                        <ListItem
-                            component={ NavLink }   
-                            to={ path }
-                            key={ path }
-                            sx={ navStyles }
-                        >
-                            { title.toUpperCase() }
-                        </ListItem>
-                    ))}
-                </List>
+      <AppBar position="fixed">
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography component={NavLink} sx={navStyles} to='/' variant='h6'>Re-Store</Typography>
+            <IconButton sx={{ color: 'white',  marginLeft: '10px' }} onClick={ () => dispatch(setDarkMode())}>
+                { darkMode ? <DarkMode /> : <LightMode /> }
+            </IconButton>
+          </Box>
+        
+          <List sx={{ display: 'flex' }}>
+            {midLinks.map(({ title, path }) => (
+              <ListItem
+                component={ NavLink }   
+                to={ path }
+                key={ path }
+                sx={ navStyles }
+              >
+                { title.toUpperCase() }
+              </ListItem>
+            ))}
+          </List>
 
-                <Box sx={{ display: 'flex', alignItems: 'center'}}>
-                    <IconButton size="large" sx={{ color: 'inherit' }}>
-                        <Badge badgeContent='4' color="secondary">
-                            <ShoppingCart />
-                        </Badge>
-                    </IconButton>
-                    
-                    <List sx={{ display: 'flex' }}>
-                        {rightLinks.map(({ title, path }) => (
-                            <ListItem
-                                component={ NavLink }   
-                                to={ path }
-                                key={ path }
-                                sx={navStyles}
-                            >
-                                { title.toUpperCase() }
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
-            </Toolbar>
-            { isLoading && (
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgress color="secondary"/>
-                </Box>
-            )}
-        </AppBar>
+          <Box sx={{ display: 'flex', alignItems: 'center'}}>
+            <IconButton size="large" sx={{ color: 'inherit' }}>
+              <Badge badgeContent='4' color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+              
+            <List sx={{ display: 'flex' }}>
+              {rightLinks.map(({ title, path }) => (
+                <ListItem
+                  component={ NavLink }   
+                  to={ path }
+                  key={ path }
+                  sx={navStyles}
+                >
+                  { title.toUpperCase() }
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Toolbar>
+          { isLoading && (
+            <Box sx={{ width: '100%' }}>
+              <LinearProgress color="secondary"/>
+            </Box>
+          )}
+      </AppBar>
     )
 }
