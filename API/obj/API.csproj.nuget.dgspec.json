@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj": {}
+    "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj": {}
   },
   "projects": {
-    "c:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj": {
+    "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "c:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj",
+        "projectPath": "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj",
         "packagesPath": "C:\\Users\\kbert\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\obj\\",
+        "outputPath": "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kbert\\AppData\\Roaming\\NuGet\\NuGet.Config"
