@@ -1,4 +1,5 @@
 using System;
+using API.DTOs;
 using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace API.Entities;
@@ -7,7 +8,6 @@ public class Basket
 {
   public int Id { get; set; }
   public required string BasketId { get; set; }
-
   public List<BasketItem> Items { get; set; } = [];
 
   public void AddItem(Product product, int quantity)
@@ -50,5 +50,4 @@ public class Basket
   {
     return Items.FirstOrDefault(item => item.ProductId == productId);
   }
-
 }
