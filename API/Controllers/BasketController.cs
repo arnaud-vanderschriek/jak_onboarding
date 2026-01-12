@@ -39,9 +39,6 @@ public class BasketController(StoreContext context) : BaseApiController
     return BadRequest(new ProblemDetails { Title = "Erreur lors de l'ajout de l'article" });
   }
 
-  
-  
-
   [HttpDelete]
   public async Task<ActionResult> RemoveBasketItem(int productId, int quantity)
   {
