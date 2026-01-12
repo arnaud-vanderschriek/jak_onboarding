@@ -5,7 +5,7 @@ export type Basket = {
   items: Item[]
 }
 
-export class Item  {
+export class Item {
   constructor(product: Product, quantity: number) {
     this.productId = product.id;
     this.name = product.name;
