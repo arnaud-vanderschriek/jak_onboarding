@@ -16,10 +16,11 @@ export const basketApi = createApi({
       query: () => 'basket',
       providesTags: ['Basket']
     }),
-    addBasketItem: builder.mutation<Basket, {product: Product | Item, quantity: number}>({
-      query: ({product, quantity}) => {
-        const productId = isBasketItem(product) ? product.productId : product.id; 
-        // On fait ceci car on a une différence entre un Product et un Item (plus précisément, dans la page catalogue, les cards affichées sont des product
+    addBasketItem: builder.mutation<Basket, { product: Product | Item, quantity: number }>({
+      query: ({ product, quantity }) => {
+        const productId = isBasketItem(product) ? product.productId : product.id;
+        // On fait ceci car on a une différence entre un Product et un Item 
+        // (plus précisément, dans la page catalogue, les cards affichées sont des product
         // or dans le basket ce sont des items...) 
         // Du coup on créer un TypeGuard  isBasketItem...(voir plus haut)
         return {
@@ -27,15 +28,21 @@ export const basketApi = createApi({
           method: 'POST'
         }
       },
-      onQueryStarted: async ({product, quantity}, {dispatch, queryFulfilled}) => {
+      onQueryStarted: async ({ product, quantity }, { dispatch, queryFulfilled }) => {
+        let isNewBasket = false;
         const patchResult = dispatch(
           basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
 
-            const productId = isBasketItem(product) ? product.productId : product.id; 
-            const existingItem = draft.items.find(item => item.productId === productId);
+            const productId = isBasketItem(product) ? product.productId : product.id;
 
-            if(existingItem) existingItem.quantity += quantity;
-            else draft.items.push(isBasketItem(product) ? product : new Item(product, quantity));
+            if (!draft?.basketId) isNewBasket = true;
+
+            if (!isNewBasket) {
+              const existingItem = draft.items.find(item => item.productId === productId);
+              if (existingItem) existingItem.quantity += quantity;
+              else draft.items.push(isBasketItem(product) ? product : { ...product, productId: product.id, quantity });
+            }
+
           })
         )
         try {
@@ -47,28 +54,28 @@ export const basketApi = createApi({
         }
       }
     }),
-    removeBasketItem: builder.mutation<void, {productId: number, quantity: number}>({
-      query: ({productId, quantity}) => ({
+    removeBasketItem: builder.mutation<void, { productId: number, quantity: number }>({
+      query: ({ productId, quantity }) => ({
         url: `basket?productId=${productId}&quantity=${quantity}`,
         method: 'DELETE'
       }),
-      onQueryStarted: async ({productId, quantity}, {dispatch, queryFulfilled}) => {
+      onQueryStarted: async ({ productId, quantity }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
             const itemIndex = draft.items.findIndex(item => item.productId === productId);
 
-            if(itemIndex >= 0) {
+            if (itemIndex >= 0) {
               draft.items[itemIndex].quantity -= quantity;
-              if(draft.items[itemIndex].quantity  <= 0) {
+              if (draft.items[itemIndex].quantity <= 0) {
                 draft.items.splice(itemIndex, 1);
-              } 
+              }
             }
           })
         )
         try {
           await queryFulfilled;
         } catch (error) {
-          console.log(error);  
+          console.log(error);
           patchResult.undo();
         }
       }
@@ -76,4 +83,4 @@ export const basketApi = createApi({
   })
 })
 
-export const {useFetchBasketQuery, useAddBasketItemMutation, useRemoveBasketItemMutation} = basketApi;
+export const { useFetchBasketQuery, useAddBasketItemMutation, useRemoveBasketItemMutation } = basketApi;

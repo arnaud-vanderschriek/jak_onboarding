@@ -2,11 +2,12 @@ import { Box, Typography, Divider, Button, TextField, Paper } from "@mui/materia
 import { currencyFormat } from "../../../lib/util";
 import { useFetchBasketQuery } from "../../../features/basket/basketApi";
 import type { Item } from "../../models/basket";
+import { Link } from "react-router";
 
 export default function OrderSummary() {
-  const { data: basket } = useFetchBasketQuery();
-  const subtotal = basket?.items.reduce((sum: number, item: Item) => sum + item.quantity * item.price, 0) ?? 0;
-    const deliveryFee = subtotal > 10000 ?  0 : 500;
+    const { data: basket } = useFetchBasketQuery();
+    const subtotal = basket?.items.reduce((sum: number, item: Item) => sum + item.quantity * item.price, 0) ?? 0;
+    const deliveryFee = subtotal > 10000 ? 0 : 500;
 
     return (
         <Box display="flex" flexDirection="column" alignItems="center" maxWidth="lg" mx="auto">
@@ -15,9 +16,9 @@ export default function OrderSummary() {
                 <Typography variant="h6" component="p" fontWeight="bold">
                     Order summary
                 </Typography>
-                <Typography variant="body2" sx={{fontStyle: 'italic'}}>
+                <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
                     Orders over $100 qualify for free delivery!
-                    // subtotal
+                // subtotal
                 </Typography>
                 <Box mt={2}>
                     <Box display="flex" justifyContent="space-between" mb={1}>
@@ -50,6 +51,8 @@ export default function OrderSummary() {
 
                 <Box mt={2}>
                     <Button
+                        component={Link}
+                        to="/checkout"
                         variant="contained"
                         color="primary"
                         fullWidth
