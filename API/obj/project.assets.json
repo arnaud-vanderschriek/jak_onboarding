@@ -2526,19 +2526,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kbert\\.nuget\\packages\\": {}
+    "C:\\Users\\aerog\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\aerog\\Documents\\jak_onboarding\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\kbert\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kbert\\Documents\\dev\\jak_onboarding\\API\\obj\\",
+      "projectPath": "C:\\Users\\aerog\\Documents\\jak_onboarding\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\aerog\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aerog\\Documents\\jak_onboarding\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kbert\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\aerog\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
