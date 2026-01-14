@@ -21,13 +21,13 @@ namespace API.Controllers
       .SearchByBrandOrTypes(productParams.Brands, productParams.Types)
       .AsQueryable();
 
-
       var products = await PagedList<Product>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
 
       Response.AddPaginationHeader(products.Metadata);
 
       return products;
     }
+
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
@@ -40,7 +40,7 @@ namespace API.Controllers
     [HttpGet("filters")]
     public async Task<IActionResult> GetFilters()
     {
-      var brands = await context.Products.Select(x => x.Brand).Distinct().ToListAsync(); //Recupérer les marques et les types avec LinQ
+      var brands = await context.Products.Select(x => x.Brand).Distinct().ToListAsync();
       var types = await context.Products.Select(x => x.Type).Distinct().ToListAsync();
 
       return Ok(new { brands, types });
