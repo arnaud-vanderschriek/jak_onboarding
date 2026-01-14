@@ -8,13 +8,13 @@ export const catalogApi = createApi({
   baseQuery: baseQueryWithErrorHandling,
   //baseQuery: fetchBaseQuery({baseUrl: 'https://localhost:5001/api'}),
   endpoints: (builder => ({
-    fetchProduts: builder.query<Product[], void>({              // génération de react hooks que nous pouvons utiliser à l'intérieur
-        query: () => ({url: 'products'})                        // de nos composants...
+    fetchProducts: builder.query<Product[], void>({              // génération de react hooks que nous pouvons utiliser à l'intérieur
+      query: () => ({ url: 'products' })                        // de nos composants...
     }),
-    fetchProductDetails: builder.query<Product, number>({     
-        query: (productId) => `products/${productId}`    
+    fetchProductDetails: builder.query<Product, number>({
+      query: (productId) => `products/${productId}`
     })
   }))
 });
 
-export const {useFetchProductDetailsQuery, useFetchProdutsQuery} = catalogApi   // <<<<<=========  On peut désormais utiliser les hooks
+export const { useFetchProductDetailsQuery, useFetchProductsQuery } = catalogApi   // <<<<<=========  On peut désormais utiliser les hooks

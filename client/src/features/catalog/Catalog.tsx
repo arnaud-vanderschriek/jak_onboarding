@@ -1,16 +1,16 @@
-import { useFetchProdutsQuery } from "./catalogApi";
+import { useFetchProductsQuery } from "./catalogApi";
 import ProductList from "./ProductList";
 
 export default function Catalog() {
 
-  const { data, isLoading } = useFetchProdutsQuery();
+  const { data, isLoading } = useFetchProductsQuery();
 
-  if(isLoading || !data) return <div>...Loading...</div>
+  if (isLoading || !data) return <div>...Loading...</div>
 
 
   return (
     <>
-      <ProductList products={ data } />
+      <ProductList products={data} />
     </>
   )
 }
