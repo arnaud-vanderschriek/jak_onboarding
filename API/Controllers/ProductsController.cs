@@ -21,7 +21,6 @@ namespace API.Controllers
       .SearchByBrandOrTypes(productParams.Brands, productParams.Types)
       .AsQueryable();
 
-
       return await query.ToListAsync();
     }
 
