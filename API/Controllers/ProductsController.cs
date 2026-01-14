@@ -5,7 +5,6 @@ using API.Extensions;
 using API.RequestHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.ObjectPool;
 
 namespace API.Controllers
 {
@@ -44,7 +43,7 @@ namespace API.Controllers
       var brands = await context.Products.Select(x => x.Brand).Distinct().ToListAsync(); //Recupérer les marques et les types avec LinQ
       var types = await context.Products.Select(x => x.Type).Distinct().ToListAsync();
 
-      return Ok(new { brands, types });                                                  // Les renvoyer sous formes d'objets...
+      return Ok(new { brands, types });
     }
   }
 }

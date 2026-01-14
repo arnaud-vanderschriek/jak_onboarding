@@ -48,7 +48,6 @@ public static class ProductExtensions
         query = query.Where(x => brandList.Count == 0 || brandList.Contains(x.Brand.ToLower()));
         query = query.Where(x => typeList.Count == 0 || typeList.Contains(x.Type.ToLower()));
 
-        Console.WriteLine("This is my query: ", query);
         return query;
     }
 }
