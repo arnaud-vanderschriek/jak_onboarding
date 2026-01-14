@@ -4,19 +4,26 @@ import type { Product } from "../../app/models/products";
 import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 import type { ProductParams } from "../../app/models/productParams";
 import { filterEmptyValues } from "../../lib/util";
+import type { Pagination } from "../../app/models/pagination";
 
 export const catalogApi = createApi({
-  reducerPath: 'catalogApi',
-  baseQuery: baseQueryWithErrorHandling,
-  //baseQuery: fetchBaseQuery({baseUrl: 'https://localhost:5001/api'}),
+  reducerPath: 'catalogApi',                                                                      // De base on utilise la requete ci-dessous, dans notre cas, on fait
+  // une requête personnalisée pour gérer les erreurs
+  baseQuery: baseQueryWithErrorHandling,                                                          //baseQuery: fetchBaseQuery({baseUrl: 'https://localhost:5001/api'}),
   endpoints: (builder) => ({
-    fetchProducts: builder.query<Product[], ProductParams>({              // génération de react hooks que nous pouvons utiliser à l'intérieur
+    fetchProducts: builder.query<{ items: Product[], pagination: Pagination }, ProductParams>({    // génération de react hooks que nous pouvons utiliser à l'intérieur
+      // de nos composants...
       query: (productParams) => {
         return {
           url: 'products',
           params: filterEmptyValues(productParams)
         }
-      }                                                                   // de nos composants...
+      },
+      transformResponse: (items: Product[], meta) => {
+        const paginationHeader = meta?.response?.headers.get("Pagination");
+        const pagination = paginationHeader ? JSON.parse(paginationHeader) : null;
+        return { items, pagination }
+      }
     }),
     fetchProductDetails: builder.query<Product, number>({
       query: (productId) => `products/${productId}`

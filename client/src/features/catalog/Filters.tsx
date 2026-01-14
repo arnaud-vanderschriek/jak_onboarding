@@ -1,11 +1,10 @@
-import { Box, FormControlLabel, FormGroup, Paper, TextField, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { useFetchFiltersQuery } from "./catalogApi"
-import { Checkbox } from "@mui/material";
-import Search from "./Search";
-import RadioButtonGroup from "../../app/shared/components/RadioButtonGroup";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { setBrands, setOrderBy, setTypes } from "./catalogSlice";
+import RadioButtonGroup from "../../app/shared/components/RadioButtonGroup";
 import CheckboxButtons from "../../app/shared/components/CheckboxButtons";
+import Search from "./Search";
 
 const sortOptions = [
     { value: 'name', label: 'Alphabetical' },

@@ -1,8 +1,9 @@
-import Grid from "@mui/material/Grid";
 import { useFetchProductsQuery } from "./catalogApi";
+import { useAppSelector } from "../../app/store/store";
+import Grid from "@mui/material/Grid";
 import ProductList from "./ProductList";
 import Filters from "./Filters";
-import { useAppSelector } from "../../app/store/store";
+import { Pagination } from "@mui/material";
 
 export default function Catalog() {
   const productParams = useAppSelector(state => state.catalog);
@@ -16,7 +17,13 @@ export default function Catalog() {
         <Filters />
       </Grid>
       <Grid size={9}>
-        <ProductList products={data} />
+        <ProductList products={data.items} />
+        <Pagination
+          color="secondary"
+          size="large"
+          count={data.pagination.totalPages}
+          page={data.pagination.currentPage}
+        />
       </Grid>
     </Grid>
   )
