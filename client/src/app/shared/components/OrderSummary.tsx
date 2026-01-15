@@ -61,6 +61,10 @@ export default function OrderSummary() {
                         Checkout
                     </Button>
                     <Button
+                        component={Link}
+                        to="/catalog"
+                        variant="contained"
+                        color="primary"
                         fullWidth
                     >
                         Continue Shopping

@@ -1,13 +1,16 @@
 import { useFetchProductsQuery } from "./catalogApi";
-import { useAppSelector } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { setPageNumber } from "./catalogSlice";
 import Grid from "@mui/material/Grid";
 import ProductList from "./ProductList";
 import Filters from "./Filters";
-import { Pagination } from "@mui/material";
+import AppPagination from "../../app/shared/components/AppPagination";
+import { Typography } from "@mui/material";
 
 export default function Catalog() {
   const productParams = useAppSelector(state => state.catalog);
   const { data, isLoading } = useFetchProductsQuery(productParams);
+  const dispatch = useAppDispatch();
 
   if (isLoading || !data) return <div>...Loading...</div>
 
@@ -17,13 +20,17 @@ export default function Catalog() {
         <Filters />
       </Grid>
       <Grid size={9}>
-        <ProductList products={data.items} />
-        <Pagination
-          color="secondary"
-          size="large"
-          count={data.pagination.totalPages}
-          page={data.pagination.currentPage}
-        />
+        {data.items && data.items.length > 0 ? (
+          <>
+            <ProductList products={data.items} />
+            <AppPagination
+              metadata={data.pagination}
+              onPageChange={(page: number) => dispatch(setPageNumber(page))}
+            />
+          </>
+        ) :
+          <Typography variant="h5">There are no results for this filter</Typography>
+        }
       </Grid>
     </Grid>
   )
