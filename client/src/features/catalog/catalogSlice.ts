@@ -42,4 +42,4 @@ export const catalogSlice = createSlice({
     }
 });
 
-export const { setBrands, setOrderBy, setPageNumber, setPageSize, setSearchTerm, setTypes } = catalogSlice.actions;
+export const { setBrands, setOrderBy, setPageNumber, setPageSize, setSearchTerm, setTypes, resetParams } = catalogSlice.actions;
