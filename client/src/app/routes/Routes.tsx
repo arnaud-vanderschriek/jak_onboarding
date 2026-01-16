@@ -9,8 +9,10 @@ import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 import BasketPage from "../../features/basket/BasketPage";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
-import LoginForm from "../../features/account/LoginForm";
+//import LoginForm from "../../features/account/LoginForm";
+import { Suspense, lazy } from "react";
 
+const LoginForm = lazy(() => import('../../features/account/LoginForm'))
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -24,7 +26,7 @@ export const router = createBrowserRouter([
       { path: "/basket", element: <BasketPage /> },
       { path: "/checkout", element: <CheckoutPage /> },
       { path: "/server-error", element: <ServerError /> },
-      { path: "/login", element: <LoginForm /> },
+      { path: "/login", element: <Suspense fallback={<div>Loading...</div>}><LoginForm /></Suspense> },
       { path: "/not-found", element: <NotFound /> },
       { path: "*", element: <Navigate replace to='/not-found' /> }
     ]
