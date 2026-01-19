@@ -377,3 +377,7 @@ C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\Microsoft.Extension
 C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\Stripe.net.dll
+C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\aerog\Documents\jak_onboarding\API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
