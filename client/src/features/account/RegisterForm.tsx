@@ -6,15 +6,31 @@ import { LockOutlined } from "@mui/icons-material";
 import { Box, Button, Container, Paper, TextField, Typography } from "@mui/material";
 import { Link } from "react-router";
 
+
 export default function RegisterForm() {
     const [registerUSer] = useRegisterMutation();
-    const { register, handleSubmit, formState: { errors, isValid, isLoading } } = useForm<RegisterSchema>({
+    const { register, handleSubmit, setError, formState: { errors, isValid, isLoading } } = useForm<RegisterSchema>({
         mode: "onTouched",
         resolver: zodResolver(registerSchema)
     })
 
     const onSubmit = async (data: RegisterSchema) => {
-        await registerUSer(data);
+        try {
+            await registerUSer(data).unwrap();
+        } catch (error) {
+            const apiError = error as { message: string };
+            if (apiError.message && typeof apiError.message === 'string') {
+                const errorArray = apiError.message.split(",");
+
+                errorArray.forEach(e => {
+                    if (e.includes('Password')) {
+                        setError('password', { message: e })
+                    } else if (e.includes('Email')) {
+                        setError('email', { message: e })
+                    }
+                })
+            }
+        }
     }
 
     return (

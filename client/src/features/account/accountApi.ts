@@ -42,7 +42,7 @@ export const accountApi = createApi({
                     router.navigate("/login");
                 } catch (error) {
                     console.log(error);
-
+                    throw new Error("Le compte existe déjà");
                 }
             }
         }),
