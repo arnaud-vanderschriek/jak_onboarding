@@ -42,7 +42,7 @@ export const accountApi = createApi({
                     router.navigate("/login");
                 } catch (error) {
                     console.log(error);
-                    throw new Error("Le compte existe déjà");
+                    throw error;
                 }
             }
         }),
@@ -65,4 +65,4 @@ export const accountApi = createApi({
 });
 
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUserInfoQuery } = accountApi;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUserInfoQuery, useLazyUserInfoQuery } = accountApi;
