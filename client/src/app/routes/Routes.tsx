@@ -9,7 +9,6 @@ import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 import BasketPage from "../../features/basket/BasketPage";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
-//import LoginForm from "../../features/account/LoginForm";
 import { Suspense, lazy } from "react";
 
 const LoginForm = lazy(() => import('../../features/account/LoginForm'))
