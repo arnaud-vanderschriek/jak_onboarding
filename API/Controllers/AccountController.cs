@@ -52,7 +52,7 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
 
 
     [HttpPost("logout")]
-    public async Task<ActionResult> logout()
+    public async Task<ActionResult> Logout()
     {
         await signInManager.SignOutAsync();
         return NoContent();
