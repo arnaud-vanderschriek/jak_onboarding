@@ -4,7 +4,6 @@ import type { Pagination as PaginationType } from "../../models/pagination";
 type Props = {
     metadata: PaginationType
     onPageChange: (page: number) => void
-
 }
 
 

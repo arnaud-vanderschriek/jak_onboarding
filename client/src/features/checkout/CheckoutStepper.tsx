@@ -31,8 +31,11 @@ export default function CheckoutStepper() {
                 <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
                     <AddressElement
                         options={{
-                            mode: 'shipping'
-
+                            mode: 'shipping',
+                            defaultValues: {
+                                name: "",
+                                address: ""
+                            }
                         }}
                     />
                     <FormControlLabel
