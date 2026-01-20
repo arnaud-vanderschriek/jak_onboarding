@@ -3,7 +3,6 @@ export function currencyFormat(amount: number) {
 }
 
 export function filterEmptyValues(values: object) {
-  console.log("Values in utils:  ", values)
   return Object.fromEntries(
     Object.entries(values).filter(
       ([, value]) => value !== '' && value !== null

@@ -2,7 +2,9 @@ import type { Product } from "./products"
 
 export type Basket = {
   basketId: string
-  items: Item[]
+  items: Item[],
+  clientSecret?: string,
+  paymentIntentId?: string
 }
 
 export class Item {
@@ -15,7 +17,7 @@ export class Item {
     this.type = product.type;
     this.quantity = quantity;
   }
-   
+
   productId: number
   name: string
   price: number
