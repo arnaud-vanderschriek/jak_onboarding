@@ -45,7 +45,7 @@ namespace API.Data.Migrations
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasAnnotation("Relational:JsonPropertyName", "postal-code");
+                        .HasAnnotation("Relational:JsonPropertyName", "postal_code");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -64,6 +64,12 @@ namespace API.Data.Migrations
 
                     b.Property<string>("BasketId")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClientSecret")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PaymentIntentId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
