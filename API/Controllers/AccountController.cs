@@ -1,3 +1,4 @@
+using System;
 using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -50,14 +51,15 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
         });
     }
 
-
     [HttpPost("logout")]
-    public async Task<ActionResult> logout()
+    public async Task<ActionResult> Logout()
     {
         await signInManager.SignOutAsync();
+
         return NoContent();
     }
 
+    [Authorize]
     [HttpPost("address")]
     public async Task<ActionResult<Address>> CreateOrUpdateAddress(Address address)
     {
@@ -90,4 +92,3 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
         return address;
     }
 }
-

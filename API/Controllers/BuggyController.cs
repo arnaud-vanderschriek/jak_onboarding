@@ -3,27 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-public class BuggyController: BaseApiController    
+public class BuggyController : BaseApiController
 {
-  [HttpGet("not-found")]                            // Error 404  Not Found
+  [HttpGet("not-found")]
   public IActionResult GetNotFound()
   {
     return NotFound();
   }
 
-  [HttpGet("bad-request")]                         // Error 400 bad request
+  [HttpGet("bad-request")]
   public IActionResult GetBadRequest()
   {
     return BadRequest("This is not a good request");
   }
 
-  [HttpGet("unauthorized")]                         // Error 401 unauthorized
+  [HttpGet("unauthorized")]
   public IActionResult GetUnauthorised()
   {
     return Unauthorized();
   }
 
-  [HttpGet("validation-error")]                     //  400 Bad request
+  [HttpGet("validation-error")]
   public IActionResult GetValidationError()
   {
     ModelState.AddModelError("Problem1", "This is the first error");
@@ -31,10 +31,9 @@ public class BuggyController: BaseApiController
     return ValidationProblem();
   }
 
-  [HttpGet("server-error")]                        // 500 Internal Server error
+  [HttpGet("server-error")]
   public IActionResult GetServerError()
   {
     throw new Exception("This is a server error");
   }
-
 }

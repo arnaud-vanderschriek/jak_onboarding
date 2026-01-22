@@ -8,11 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Entities/" />
+    <Folder Include="Entities\OrderAggregate\" />
     <Folder Include="Extensions\" />
     <Folder Include="Middleware\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup> 
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />

@@ -7,18 +7,15 @@ public static class ProductExtensions
 {
     public static IQueryable<Product> Sort(this IQueryable<Product> query, string? orderBy)
     {
-
-        query = orderBy switch                          // On définit un switch pour qu'on puisse choisir de Sort soit price soit priceDesc ou si pas de paramètre
-        {                                               // par nom...
+        query = orderBy switch
+        {
             "price" => query.OrderBy(x => x.Price),
             "priceDesc" => query.OrderByDescending(x => x.Price),
             _ => query.OrderBy(x => x.Name)
         };
 
-
         return query;
     }
-
 
     public static IQueryable<Product> Search(this IQueryable<Product> query, string? searchTerm)
     {
@@ -29,15 +26,15 @@ public static class ProductExtensions
         return query.Where(x => x.Name.ToLower().Contains(lowerCaseSearchTerm));
     }
 
-
-    public static IQueryable<Product> SearchByBrandOrTypes(this IQueryable<Product> query, string? searchBrand, string? types)
+    public static IQueryable<Product> Filter(this IQueryable<Product> query,
+        string? brands, string? types)
     {
         var brandList = new List<string>();
         var typeList = new List<string>();
 
-        if (!string.IsNullOrEmpty(searchBrand))
+        if (!string.IsNullOrEmpty(brands))
         {
-            brandList.AddRange([.. searchBrand.ToLower().Split(",")]);
+            brandList.AddRange([.. brands.ToLower().Split(",")]);
         }
 
         if (!string.IsNullOrEmpty(types))
