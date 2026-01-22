@@ -1,9 +1,11 @@
+
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
-import { Item, type Basket } from "../../app/models/basket";
-import type { Product } from "../../app/models/products";
+import { Basket, Item } from "../../app/models/basket";
+import { Product } from "../../app/models/product";
+import Cookies from 'js-cookie';
 
-function isBasketItem(product: Product | Item): product is Item {  // Le TypeGuard est définit par la définition du type de la valeur de retour: product is Item
+function isBasketItem(product: Product | Item): product is Item {
   return (product as Item).quantity !== undefined;
 }
 
@@ -19,10 +21,6 @@ export const basketApi = createApi({
     addBasketItem: builder.mutation<Basket, { product: Product | Item, quantity: number }>({
       query: ({ product, quantity }) => {
         const productId = isBasketItem(product) ? product.productId : product.id;
-        // On fait ceci car on a une différence entre un Product et un Item 
-        // (plus précisément, dans la page catalogue, les cards affichées sont des product
-        // or dans le basket ce sont des items...) 
-        // Du coup on créer un TypeGuard  isBasketItem...(voir plus haut)
         return {
           url: `basket?productId=${productId}&quantity=${quantity}`,
           method: 'POST'
@@ -32,7 +30,6 @@ export const basketApi = createApi({
         let isNewBasket = false;
         const patchResult = dispatch(
           basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
-
             const productId = isBasketItem(product) ? product.productId : product.id;
 
             if (!draft?.basketId) isNewBasket = true;
@@ -40,14 +37,16 @@ export const basketApi = createApi({
             if (!isNewBasket) {
               const existingItem = draft.items.find(item => item.productId === productId);
               if (existingItem) existingItem.quantity += quantity;
-              else draft.items.push(isBasketItem(product) ? product : { ...product, productId: product.id, quantity });
+              else draft.items.push(isBasketItem(product)
+                ? product : { ...product, productId: product.id, quantity });
             }
-
           })
         )
+
         try {
           await queryFulfilled;
-          dispatch(basketApi.util.invalidateTags(['Basket']))
+
+          if (isNewBasket) dispatch(basketApi.util.invalidateTags(['Basket']))
         } catch (error) {
           console.log(error);
           patchResult.undo();
@@ -63,7 +62,6 @@ export const basketApi = createApi({
         const patchResult = dispatch(
           basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
             const itemIndex = draft.items.findIndex(item => item.productId === productId);
-
             if (itemIndex >= 0) {
               draft.items[itemIndex].quantity -= quantity;
               if (draft.items[itemIndex].quantity <= 0) {
@@ -72,6 +70,7 @@ export const basketApi = createApi({
             }
           })
         )
+
         try {
           await queryFulfilled;
         } catch (error) {
@@ -79,8 +78,48 @@ export const basketApi = createApi({
           patchResult.undo();
         }
       }
+    }),
+    clearBasket: builder.mutation<void, void>({
+      queryFn: () => ({ data: undefined }),
+      onQueryStarted: async (_, { dispatch }) => {
+        dispatch(
+          basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
+            draft.items = [];
+            draft.basketId = '';
+          })
+        );
+        Cookies.remove('basketId');
+      }
+    }),
+    addCoupon: builder.mutation<Basket, string>({
+      query: (code: string) => ({
+        url: `basket/${code}`,
+        method: 'POST'
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data: updatedBasket } = await queryFulfilled;
+
+        dispatch(basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
+          Object.assign(draft, updatedBasket)
+        }))
+      }
+    }),
+    removeCoupon: builder.mutation<Basket, void>({
+      query: () => ({
+        url: 'basket/remove-coupon',
+        method: 'DELETE'
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+
+        dispatch(basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
+          draft.coupon = null
+        }))
+      }
     })
   })
-})
+});
 
-export const { useFetchBasketQuery, useAddBasketItemMutation, useRemoveBasketItemMutation } = basketApi;
+export const { useFetchBasketQuery, useAddBasketItemMutation,
+  useAddCouponMutation, useRemoveCouponMutation,
+  useRemoveBasketItemMutation, useClearBasketMutation } = basketApi;
