@@ -6,7 +6,6 @@ type Props = {
     onPageChange: (page: number) => void
 }
 
-
 export default function AppPagination({ metadata, onPageChange }: Props) {
     const { currentPage, totalPages, pageSize, totalCount } = metadata;
 
@@ -28,3 +27,6 @@ export default function AppPagination({ metadata, onPageChange }: Props) {
         </Box >
     )
 }
+
+
+

@@ -63,7 +63,7 @@ export const accountApi = createApi({
         }),
         fetchAddress: builder.query<Address, void>({
             query: () => ({
-                url: 'account/address '
+                url: 'account/address'
             })
         }),
         updateUserAddress: builder.mutation<Address, Address>({
